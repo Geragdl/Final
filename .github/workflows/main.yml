@@ -194,4 +194,6 @@ def main():
         
         return True
 
-if __name__ 
+# Ejecutar la función principal si el script es ejecutado directamente
+if __name__ == "__main__":
+    main()
