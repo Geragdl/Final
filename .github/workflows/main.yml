@@ -52,16 +52,12 @@ def ver_cliente(nombre=None):
     Returns:
         bool: True si el cliente existe, False si no existe.
     """
-    # Si no se proporcionó un nombre, solicitarlo
     if nombre is None:
         nombre = input("\nNombre del cliente: ")
     
-    # Construir la ruta al archivo del cliente
     ruta = f"clientes/{nombre}.txt"
 
-    # Verificar si el cliente existe
     if os.path.exists(ruta):
-        # Leer y mostrar la información del cliente
         with open(ruta, 'r') as archivo:
             contenido = archivo.read()
         print("\nINFORMACIÓN DEL CLIENTE:")
@@ -85,19 +81,15 @@ def crear_cliente(nombre=None, direccion=None, telefono=None, servicio=None):
     Returns:
         bool: True si se creó correctamente, False si ya existía.
     """
-    # Si no se proporcionó un nombre, solicitarlo
     if nombre is None:
         nombre = input("\nNombre del cliente nuevo: ")
     
-    # Construir la ruta al archivo del cliente
     ruta = f"clientes/{nombre}.txt"
 
-    # Verificar si el cliente ya existe
     if os.path.exists(ruta):
         print(f"Este cliente '{nombre}' ya existe")
         return False
 
-    # Solicitar información faltante si no se proporcionó
     if direccion is None:
         direccion = input("Dirección: ")
     
@@ -107,10 +99,8 @@ def crear_cliente(nombre=None, direccion=None, telefono=None, servicio=None):
     if servicio is None:
         servicio = input("Servicio: ")
     
-    # Obtener la fecha actual
     fecha = datetime.datetime.now().strftime("%Y-%m-%d")
 
-    # Crear el archivo del cliente y escribir su información
     with open(ruta, 'w') as archivo:
         archivo.write(f"Nombre: {nombre}\n")
         archivo.write(f"Dirección: {direccion}\n")
@@ -134,23 +124,17 @@ def agregar_servicio(nombre=None, servicio=None):
     Returns:
         bool: True si se agregó correctamente, False si el cliente no existe.
     """
-    # Si no se proporcionó un nombre, solicitarlo
     if nombre is None:
         nombre = input("\nNombre del cliente: ")
     
-    # Construir la ruta al archivo del cliente
     ruta = f"clientes/{nombre}.txt"
 
-    # Verificar si el cliente existe
     if os.path.exists(ruta):
-        # Solicitar el servicio si no se proporcionó
         if servicio is None:
             servicio = input("Nuevo servicio: ")
         
-        # Obtener la fecha actual
         fecha = datetime.datetime.now().strftime("%Y-%m-%d")
 
-        # Añadir el servicio al archivo del cliente
         with open(ruta, 'a') as archivo:
             archivo.write(f"- {servicio} ({fecha})\n")
 
@@ -165,33 +149,24 @@ def main():
     """
     Función principal que maneja tanto el modo interactivo como el modo de línea de comandos.
     """
-    # Crear el directorio de clientes si no existe
     inicializar_directorio()
     
-    # Verificar si hay argumentos de línea de comandos
     if len(sys.argv) > 1:
-        # Obtener el comando (primer argumento)
         comando = sys.argv[1]
         
-        # Ejecutar el comando correspondiente
         if comando == "listar":
-            # Listar todos los clientes
             return ver_lista()
         
         elif comando == "ver" and len(sys.argv) > 2:
-            # Ver información de un cliente específico
             return ver_cliente(sys.argv[2])
         
         elif comando == "crear" and len(sys.argv) > 5:
-            # Crear un nuevo cliente con la información proporcionada
             return crear_cliente(sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5])
         
         elif comando == "agregar" and len(sys.argv) > 3:
-            # Agregar un servicio a un cliente existente
             return agregar_servicio(sys.argv[2], sys.argv[3])
         
         else:
-            # Mostrar instrucciones si el comando no es válido o faltan argumentos
             print("Uso del programa en línea de comandos:")
             print("  python gestor_clientes.py listar")
             print("  python gestor_clientes.py ver <nombre>")
@@ -199,14 +174,10 @@ def main():
             print("  python gestor_clientes.py agregar <nombre> <servicio>")
             return False
     
-    # Modo interactivo (sin argumentos de línea de comandos)
     else:
-        # Bucle principal del modo interactivo
         while True:
-            # Mostrar menú y obtener opción
             opcion = mostrar_menu()
 
-            # Procesar la opción elegida
             if opcion == "1":
                 ver_lista()
             elif opcion == "2":
@@ -223,7 +194,4 @@ def main():
         
         return True
 
-# Punto de entrada del programa
-if __name__ == "__main__":
-    # Llamar a la función principal
-    main()
+if __name__ 
